@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRUPO SAL - Soluciones Logísticas Integrales</title>
+    <link rel="icon" type="image/png" href="https://github.com/rimedhn/gruposal/blob/main/Logo%20cuadrado%20grupo%20sal.jpg?raw=true">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-orange': '#FF6B35',
+                        'brand-dark': '#1a1a1a',
+                        'brand-navy': '#1e3a8a'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #FF6B35 0%, #1e3a8a 100%);
+        }
+        
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .navbar-mobile {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .navbar-mobile.active {
+            transform: translateX(0);
+        }
+        
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #FF6B35, transparent);
+            height: 2px;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <img src="https://github.com/rimedhn/gruposal/blob/main/Logo%20cuadrado%20grupo%20sal.jpg?raw=true" 
+                         alt="GRUPO SAL Logo" 
+                         class="h-10 w-10 sm:h-12 sm:w-12 rounded-lg"
+                         onerror="this.style.display='none'">
+                    <span class="ml-3 text-xl font-bold text-brand-dark">GRUPO SAL</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#inicio" class="text-brand-dark hover:text-brand-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">Inicio</a>
+                        <a href="#servicios" class="text-brand-dark hover:text-brand-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">Servicios</a>
+                        <a href="#nosotros" class="text-brand-dark hover:text-brand-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">Nosotros</a>
+                        <a href="#contacto" class="text-brand-dark hover:text-brand-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">Contacto</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-brand-dark hover:text-brand-orange focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="navbar-mobile md:hidden bg-white shadow-lg absolute top-16 left-0 w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#inicio" class="block px-3 py-2 text-brand-dark hover:text-brand-orange font-medium">Inicio</a>
+                <a href="#servicios" class="block px-3 py-2 text-brand-dark hover:text-brand-orange font-medium">Servicios</a>
+                <a href="#nosotros" class="block px-3 py-2 text-brand-dark hover:text-brand-orange font-medium">Nosotros</a>
+                <a href="#contacto" class="block px-3 py-2 text-brand-dark hover:text-brand-orange font-medium">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative pt-20 pb-16 overflow-hidden">
+        <!-- Background with overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-navy via-brand-dark to-brand-orange"></div>
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        
+        <!-- Animated background pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-20 h-20 bg-white rounded-full animate-pulse"></div>
+            <div class="absolute top-32 right-20 w-16 h-16 bg-brand-orange rounded-full animate-bounce"></div>
+            <div class="absolute bottom-20 left-1/4 w-12 h-12 bg-yellow-300 rounded-full animate-ping"></div>
+            <div class="absolute bottom-32 right-1/3 w-24 h-24 bg-white rounded-full animate-pulse"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-96">
+                <div class="text-white">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl">
+                        Soluciones <span class="text-yellow-300 drop-shadow-2xl">Logísticas</span> Integrales
+                    </h1>
+                    <p class="text-xl mb-8 text-white drop-shadow-lg font-medium leading-relaxed">
+                        Optimizamos cada etapa de su cadena de suministro, asegurando cumplimiento normativo, agilidad en procesos y reducción de costos operativos.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#contacto" class="bg-white text-brand-orange px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
+                            Solicitar Cotización
+                        </a>
+                        <a href="tel:+50487797361" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-brand-orange transition-colors text-center">
+                            <i class="fas fa-phone mr-2"></i>Llamar Ahora
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <img src="https://github.com/rimedhn/gruposal/blob/main/940x788%20Logistica%20de%20vanguardia,%20dise%C3%B1ada%20para%20potenciar%20tu%20negocio.jpg?raw=true" 
+                         alt="Logística de vanguardia, diseñada para potenciar tu negocio" 
+                         class="rounded-lg shadow-2xl cursor-pointer hover:scale-105 transition-transform max-w-full h-auto"
+                         onclick="openModal(this.src, this.alt)"
+                         onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-brand-dark mb-4">Nuestros Servicios</h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Brindamos soluciones integrales que transforman y optimizan su cadena de suministro
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Transporte y Distribución</h3>
+                    <p class="text-gray-600">Servicios de transporte terrestre confiable y eficiente para todas sus necesidades logísticas.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Almacenamiento</h3>
+                    <p class="text-gray-600">Soluciones de almacenamiento seguro y gestión de inventarios con tecnología avanzada.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Optimización de Procesos</h3>
+                    <p class="text-gray-600">Análisis y mejora continua de sus procesos logísticos para maximizar la eficiencia.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Servicios Aduaneros</h3>
+                    <p class="text-gray-600">Gestión integral de trámites aduaneros para importaciones y exportaciones con total eficiencia.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Registros de Productos</h3>
+                    <p class="text-gray-600">Tramitación y gestión de registros sanitarios y regulatorios para sus productos.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Permisos Entidades Regulatorias</h3>
+                    <p class="text-gray-600">Gestión de permisos ante Minería, SENASA, UTOH, ARSA, CENTREX, SEFIN y otras entidades.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Tránsitos Aduanales ZOLI-RIT</h3>
+                    <p class="text-gray-600">Especialistas en régimen de tránsito aduanal ZOLI-RIT para operaciones especializadas.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Fletes Internacionales</h3>
+                    <p class="text-gray-600">Servicios de flete terrestre, marítimo y aéreo para sus operaciones internacionales.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Fletes Nacionales</h3>
+                    <p class="text-gray-600">Distribución y transporte nacional confiable para llegar a cualquier destino en Honduras.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Seguro de Carga</h3>
+                    <p class="text-gray-600">Protección integral de su mercancía con seguros especializados para todo tipo de carga.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Servicio 24/7</h3>
+                    <p class="text-gray-600">Atención y monitoreo continuo de sus operaciones los 365 días del año.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-brand-orange text-4xl mb-4">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-brand-dark">Consultoría Especializada</h3>
+                    <p class="text-gray-600">Asesoría experta para el diseño e implementación de soluciones logísticas personalizadas y más servicios especializados.</p>
+                </div>
+            </div>
+            
+            <!-- Service Images Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="relative">
+                    <img src="https://github.com/rimedhn/gruposal/blob/main/1080x1080%20confia%20en%20un%20socio%20logistico%20que%20nunca%20se%20detiene.jpg?raw=true" 
+                         alt="Confía en un socio logístico que nunca se detiene" 
+                         class="w-full h-80 object-cover rounded-lg shadow-lg cursor-pointer hover:scale-105 transition-transform"
+                         onclick="openModal(this.src, this.alt)"
+                         onerror="this.style.display='none'">
+                </div>
+                <div class="relative">
+                    <img src="https://github.com/rimedhn/gruposal/blob/main/940x788%20a%20tu%20servicio%20365%20dias%20del%20a%C3%B1o.jpg?raw=true" 
+                         alt="A tu servicio 365 días del año" 
+                         class="w-full h-80 object-cover rounded-lg shadow-lg cursor-pointer hover:scale-105 transition-transform"
+                         onclick="openModal(this.src, this.alt)"
+                         onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-brand-dark mb-6">¿Quiénes Somos?</h2>
+                    <div class="section-divider"></div>
+                    <p class="text-lg text-gray-600 mb-6">
+                        GRUPO SAL es una empresa líder en soluciones logísticas integrales, comprometida con la excelencia operativa y la satisfacción de nuestros clientes. Nos especializamos en optimizar cada etapa de la cadena de suministro.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Con años de experiencia en el mercado hondureño, hemos desarrollado la expertise necesaria para brindar servicios de clase mundial, adaptados a las necesidades específicas de cada cliente.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-brand-orange mb-2">100+</div>
+                            <div class="text-gray-600">Clientes Satisfechos</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-brand-orange mb-2">24/7</div>
+                            <div class="text-gray-600">Servicio Continuo</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <img src="https://github.com/rimedhn/gruposal/blob/main/1080x1080%20Quienes%20somos.jpg?raw=true" 
+                         alt="Quiénes somos" 
+                         class="w-full rounded-lg shadow-lg cursor-pointer hover:scale-105 transition-transform"
+                         onclick="openModal(this.src, this.alt)"
+                         onerror="this.style.display='none'">
+                </div>
+            </div>
+            
+            <!-- Additional Images -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <img src="https://github.com/rimedhn/gruposal/blob/main/1080x1080%20movemos%20tu%20negocio%20al%20siguiente%20nivel.jpg?raw=true" 
+                         alt="Movemos tu negocio al siguiente nivel" 
+                         class="w-full h-64 object-cover rounded-lg shadow-lg cursor-pointer hover:scale-105 transition-transform"
+                         onclick="openModal(this.src, this.alt)"
+                         onerror="this.style.display='none'">
+                </div>
+                <div>
+                    <img src="https://github.com/rimedhn/gruposal/blob/main/1080x1080%20te%20ayudamos%20a%20escalar%20tu%20negocio.jpg?raw=true" 
+                         alt="Te ayudamos a escalar tu negocio" 
+                         class="w-full h-64 object-cover rounded-lg shadow-lg cursor-pointer hover:scale-105 transition-transform"
+                         onclick="openModal(this.src, this.alt)"
+                         onerror="this.style.display='none'">
+                </div>
+                <div>
+                    <img src="https://github.com/rimedhn/gruposal/blob/main/1080x1080%20trabajamos%20para%20que%20tu%20carga%20llegue%20siempre%20segura.jpg?raw=true" 
+                         alt="Trabajamos para que tu carga llegue siempre segura" 
+                         class="w-full h-64 object-cover rounded-lg shadow-lg cursor-pointer hover:scale-105 transition-transform"
+                         onclick="openModal(this.src, this.alt)"
+                         onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-brand-dark mb-4">Contáctanos</h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600">Estamos aquí para ayudarte con tus necesidades logísticas</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-6 text-brand-dark">Envíanos un Mensaje</h3>
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nombre Completo</label>
+                            <input type="text" id="nombre" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Empresa</label>
+                            <input type="text" id="empresa" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Teléfono</label>
+                            <input type="tel" id="telefono" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
+                            <textarea id="mensaje" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-orange text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
+                            <i class="fab fa-whatsapp mr-2"></i>Enviar por WhatsApp
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info & Map -->
+                <div class="space-y-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-6 text-brand-dark">Información de Contacto</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-brand-orange text-xl mr-4"></i>
+                                <div>
+                                    <p class="font-medium">Dirección</p>
+                                    <p class="text-gray-600">Rio Piedra, tercer nivel Plaza Próceres<br>San Pedro Sula, Honduras</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-brand-orange text-xl mr-4"></i>
+                                <div>
+                                    <p class="font-medium">Teléfono</p>
+                                    <a href="tel:+50487797361" class="text-brand-orange hover:underline">+504 8779-7361</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-brand-orange text-xl mr-4"></i>
+                                <div>
+                                    <p class="font-medium">Email</p>
+                                    <a href="mailto:coordinaciones@gruposalhn.com" class="text-brand-orange hover:underline">coordinaciones@gruposalhn.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Google Map -->
+                    <div class="bg-white p-4 rounded-xl shadow-lg">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3845.8234567890123!2d-88.0252!3d15.5047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTXCsDMwJzE3LjAiTiA4OMKwMDEnMzAuNyJX!5e0!3m2!1ses!2shn!4v1234567890123"
+                            width="100%" 
+                            height="300" 
+                            style="border:0; border-radius: 8px;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="https://github.com/rimedhn/gruposal/blob/main/LOGO%20LARGO%20PARA%20FIRMA%20GRUPO%20SAL.png?raw=true" 
+                             alt="GRUPO SAL Logo" 
+                             class="h-12 w-auto"
+                             onerror="this.style.display='none'">
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Soluciones logísticas integrales que optimizan su cadena de suministro con excelencia y confiabilidad.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/profile.php?id=" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-brand-orange transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-brand-orange transition-colors hidden" id="instagram-link">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-brand-orange transition-colors hidden" id="tiktok-link">
+                            <i class="fab fa-tiktok text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Servicios</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Transporte y Distribución</li>
+                        <li>Servicios Aduaneros</li>
+                        <li>Registros de Productos</li>
+                        <li>Permisos Entidades Regulatorias</li>
+                        <li>Fletes Internacionales</li>
+                        <li>Fletes Nacionales</li>
+                        <li>Seguro de Carga</li>
+                        <li>Consultoría Especializada</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contacto</h4>
+                    <div class="space-y-2 text-gray-300">
+                        <p><i class="fas fa-map-marker-alt mr-2"></i>Rio Piedra, Plaza Próceres, San Pedro Sula</p>
+                        <p><i class="fas fa-phone mr-2"></i>+504 8779-7361</p>
+                        <p><i class="fas fa-envelope mr-2"></i>coordinaciones@gruposalhn.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 GRUPO SAL. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/50487797361" target="_blank" rel="noopener noreferrer" class="floating-whatsapp">
+        <div class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </div>
+    </a>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption" class="text-center text-white mt-4 text-lg"></div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value;
+            const empresa = document.getElementById('empresa').value;
+            const telefono = document.getElementById('telefono').value;
+            const email = document.getElementById('email').value;
+            const mensaje = document.getElementById('mensaje').value;
+            
+            const whatsappMessage = `Hola GRUPO SAL, me gustaría contactarlos:
+
+*Nombre:* ${nombre}
+*Empresa:* ${empresa || 'No especificada'}
+*Teléfono:* ${telefono}
+*Email:* ${email}
+*Mensaje:* ${mensaje}
+
+Gracias por su atención.`;
+            
+            const whatsappUrl = `https://wa.me/50487797361?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        });
+
+        // Image modal functions
+        function openModal(src, alt) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const caption = document.getElementById('caption');
+            
+            modal.style.display = 'block';
+            modalImg.src = src;
+            caption.innerHTML = alt;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside the image
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Hide social media links if they don't have valid URLs
+        const instagramLink = document.getElementById('instagram-link');
+        const tiktokLink = document.getElementById('tiktok-link');
+        
+        // Since no Instagram or TikTok URLs were provided, these remain hidden
+        // If URLs are added later, remove the 'hidden' class
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98eb480660a37644',t:'MTc2MDQ4ODk5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
