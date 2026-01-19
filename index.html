@@ -1,0 +1,511 @@
+<! DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRUPO SAL - Sitio en Mantenimiento</title>
+    <link rel="icon" type="image/png" href="https://github.com/rimedhn/gruposal/blob/main/Logo%20cuadrado%20grupo%20sal.jpg? raw=true">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter: wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family:  'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1a1a1a 50%, #FF6B35 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow:  hidden;
+            position: relative;
+        }
+
+        /* Animated background elements */
+        .bg-animation {
+            position: absolute;
+            width: 100%;
+            height:  100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            top: 60%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: #FF6B35;
+            border-radius: 50%;
+            animation-delay: 5s;
+        }
+
+        . shape-3 {
+            bottom: 20%;
+            left:  20%;
+            width: 60px;
+            height: 60px;
+            background: #FCD34D;
+            border-radius: 50%;
+            animation-delay: 10s;
+        }
+
+        .shape-4 {
+            top: 30%;
+            right: 30%;
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            animation-delay:  15s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) scale(1);
+            }
+            25% {
+                transform: translateY(-30px) translateX(20px) scale(1.1);
+            }
+            50% {
+                transform: translateY(-60px) translateX(-20px) scale(0.9);
+            }
+            75% {
+                transform: translateY(-30px) translateX(10px) scale(1.05);
+            }
+        }
+
+        /* Main container */
+        .maintenance-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width:  800px;
+            width: 90%;
+        }
+
+        /* Logo */
+        .logo-container {
+            margin-bottom: 2rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 4px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main content */
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        /* Icon */
+        .icon-container {
+            margin-bottom: 2rem;
+        }
+
+        .maintenance-icon {
+            font-size: 5rem;
+            color: #FF6B35;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform:  scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        /* Text */
+        h1 {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size:  1.3rem;
+            color: #4B5563;
+            margin-bottom:  1.5rem;
+            font-weight: 500;
+        }
+
+        .message {
+            font-size: 1.1rem;
+            color: #6B7280;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* Contact buttons */
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size:  1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20BA5A;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-phone {
+            background: #1e3a8a;
+            color:  white;
+        }
+
+        . btn-phone:hover {
+            background: #1e40af;
+            transform: translateY(-3px);
+            box-shadow:  0 6px 20px rgba(30, 58, 138, 0.4);
+        }
+
+        .btn-email {
+            background: #FF6B35;
+            color:  white;
+        }
+
+        . btn-email:hover {
+            background: #ff5722;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Divider */
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #FF6B35, transparent);
+            margin:  2rem 0;
+        }
+
+        /* Contact info */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1. 5rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .info-icon {
+            color: #FF6B35;
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+        }
+
+        . info-text h3 {
+            font-size: 0.9rem;
+            color: #1a1a1a;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .info-text p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        .info-text a {
+            color:  #FF6B35;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-text a:hover {
+            color: #1e3a8a;
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity:  0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity:  1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading spinner */
+        .spinner-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .spinner {
+            width: 8px;
+            height: 8px;
+            background: #FF6B35;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        . spinner:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .spinner:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        /* Hidden class for contact sections */
+        .hidden {
+            display: none ! important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            . message {
+                font-size:  1rem;
+            }
+
+            .maintenance-icon {
+                font-size: 4rem;
+            }
+
+            .content {
+                padding: 2rem 1.5rem;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="bg-animation">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+    </div>
+
+    <!-- Main container -->
+    <div class="maintenance-container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="https://github.com/rimedhn/gruposal/blob/main/Logo%20cuadrado%20grupo%20sal.jpg?raw=true" 
+                 alt="GRUPO SAL Logo" 
+                 class="logo"
+                 onerror="this.style.display='none'">
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Icon -->
+            <div class="icon-container">
+                <i class="fas fa-tools maintenance-icon"></i>
+            </div>
+
+            <!-- Main text -->
+            <h1>Sitio en Mantenimiento</h1>
+            <p class="subtitle">Estamos mejorando para servirte mejor</p>
+            
+            <div class="divider"></div>
+
+            <p class="message">
+                Nuestro sitio web se encuentra temporalmente fuera de servicio debido a trabajos de mantenimiento y mejoras. 
+                <strong>Estamos trabajando para volver pronto con una mejor experiencia.</strong>
+            </p>
+
+            <p class="message" id="contact-message">
+                Mientras tanto, puedes contactarnos directamente a través de nuestros canales de atención:
+            </p>
+
+            <!-- Contact buttons -->
+            <div class="contact-buttons" id="contact-buttons">
+                <a href="https://wa.me/50487797361" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
+                <a href="tel:+50487797361" class="btn btn-phone">
+                    <i class="fas fa-phone"></i>
+                    Llamar Ahora
+                </a>
+                <a href="mailto:coordinaciones@gruposalhn.com" class="btn btn-email">
+                    <i class="fas fa-envelope"></i>
+                    Email
+                </a>
+            </div>
+
+            <div class="divider" id="contact-divider"></div>
+
+            <!-- Contact info -->
+            <div class="contact-info" id="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt info-icon"></i>
+                    <div class="info-text">
+                        <h3>Ubicación</h3>
+                        <p>Rio Piedra, tercer nivel<br>Plaza Próceres<br>San Pedro Sula, Honduras</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone info-icon"></i>
+                    <div class="info-text">
+                        <h3>Teléfono</h3>
+                        <p><a href="tel: +50487797361">+504 8779-7361</a></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope info-icon"></i>
+                    <div class="info-text">
+                        <h3>Email</h3>
+                        <p><a href="mailto: coordinaciones@gruposalhn. com">coordinaciones@gruposalhn.com</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading spinner -->
+            <div class="spinner-container">
+                <div class="spinner"></div>
+                <div class="spinner"></div>
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // CONFIGURATION OPTION
+        // Set to "SI" to show contact buttons and information
+        // Set to "NO" to hide contact buttons and information
+        // ========================================
+        const MOSTRAR_BOTONES_CONTACTO = "NO";
+        // ========================================
+
+        // Apply configuration on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (MOSTRAR_BOTONES_CONTACTO. toUpperCase() === "NO") {
+                // Hide contact message
+                const contactMessage = document.getElementById('contact-message');
+                if (contactMessage) contactMessage.classList.add('hidden');
+                
+                // Hide contact buttons
+                const contactButtons = document.getElementById('contact-buttons');
+                if (contactButtons) contactButtons.classList.add('hidden');
+                
+                // Hide divider
+                const contactDivider = document.getElementById('contact-divider');
+                if (contactDivider) contactDivider.classList.add('hidden');
+                
+                // Hide contact info
+                const contactInfo = document.getElementById('contact-info');
+                if (contactInfo) contactInfo.classList. add('hidden');
+            }
+        });
+
+        // Add smooth animations on load
+        window.addEventListener('load', () => {
+            document.body. style.opacity = '1';
+        });
+    </script>
+</body>
+</html>
